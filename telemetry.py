@@ -8,12 +8,13 @@ import urllib.error
 import urllib.request
 
 ENDPOINT = os.getenv("OTLP_ENDPOINT", "http://localhost:4318").rstrip("/")
+METRICS_ENDPOINT = os.getenv("METRICS_OTLP_ENDPOINT", ENDPOINT).rstrip("/")
 RESOURCE = {"attributes": [{"key": "service.name", "value": {"stringValue": "lgtm-demo"}}]}
 
 
 def send(signal, body):
     request = urllib.request.Request(
-        f"{ENDPOINT}/v1/{signal}", data=json.dumps(body).encode(),
+        f"{METRICS_ENDPOINT if signal == 'metrics' else ENDPOINT}/v1/{signal}", data=json.dumps(body).encode(),
         headers={"Content-Type": "application/json"}, method="POST",
     )
     with urllib.request.urlopen(request, timeout=5) as response:

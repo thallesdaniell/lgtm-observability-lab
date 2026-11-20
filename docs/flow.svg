@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1100" height="360" viewBox="0 0 1100 360" role="img" aria-labelledby="title desc">
-<title id="title">Fluxo de observabilidade LGTM</title><desc id="desc">Cliente chama API que envia logs, métricas e traces via collector para Loki, Prometheus e Tempo. Grafana consulta os três.</desc>
+<title id="title">Fluxo de observabilidade LGTM</title><desc id="desc">Cliente chama API que envia logs e traces via collector para Loki e Tempo, e métricas via Alloy para Mimir. Grafana consulta os três.</desc>
 <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#94a3b8"/></marker><style>text{font-family:system-ui,sans-serif;fill:#e2e8f0}.head{font-size:22px;font-weight:700}.label{font-size:16px;font-weight:600}.sub{font-size:12px;fill:#cbd5e1}.edge{stroke:#94a3b8;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
 <rect width="1100" height="360" rx="18" fill="#0b1220"/><text x="35" y="42" class="head">Da requisição aos sinais de observabilidade</text>
 <rect x="35" y="140" width="140" height="70" rx="12" fill="#1e3a5f"/><text x="60" y="180" class="label">Cliente</text>
@@ -7,7 +7,7 @@
 <rect x="420" y="130" width="170" height="90" rx="12" fill="#3b266d"/><text x="438" y="167" class="label">OTel Collector</text><text x="438" y="192" class="sub">recebe OTLP/HTTP</text>
 <rect x="650" y="65" width="150" height="55" rx="10" fill="#713f12"/><text x="672" y="99" class="label">Loki · logs</text>
 <rect x="650" y="145" width="150" height="55" rx="10" fill="#713f12"/><text x="672" y="179" class="label">Tempo · traces</text>
-<rect x="650" y="225" width="150" height="55" rx="10" fill="#713f12"/><text x="667" y="259" class="label">Prometheus</text>
+<rect x="650" y="225" width="150" height="55" rx="10" fill="#713f12"/><text x="667" y="259" class="label">Alloy → Mimir</text>
 <rect x="875" y="130" width="165" height="90" rx="12" fill="#07554e"/><text x="898" y="167" class="label">Grafana</text><text x="898" y="192" class="sub">Explore os sinais</text>
 <path d="M175 175H212 M375 175H412 M590 160L642 93 M590 175H642 M590 190L642 252 M800 93L867 160 M800 172H867 M800 252L867 190" class="edge"/>
 <text x="35" y="326" class="sub">O trace ID conecta o log à operação no Tempo.</text></svg>

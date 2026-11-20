@@ -6,6 +6,20 @@ services:
       - "127.0.0.1:4318:4318"
     volumes:
       - lgtm-data:/data
+      - ./mimir-datasource.yaml:/otel-lgtm/grafana/conf/provisioning/datasources/mimir.yaml:ro
+  mimir:
+    image: grafana/mimir:2.14.3
+    command: ["-config.file=/etc/mimir.yaml"]
+    volumes:
+      - ./mimir.yaml:/etc/mimir.yaml:ro
+      - mimir-data:/data
+  alloy:
+    image: grafana/alloy:v1.9.2
+    command: ["run", "/etc/alloy/config.alloy", "--storage.path=/tmp/alloy"]
+    volumes:
+      - ./alloy.alloy:/etc/alloy/config.alloy:ro
+    depends_on:
+      - mimir
   app:
     image: python:3.12-alpine
     working_dir: /app
@@ -15,8 +29,11 @@ services:
       - "127.0.0.1:8088:8080"
     environment:
       OTLP_ENDPOINT: http://lgtm:4318
+      METRICS_OTLP_ENDPOINT: http://alloy:4318
     command: ["python", "-u", "telemetry.py"]
     depends_on:
       - lgtm
+      - alloy
 volumes:
   lgtm-data:
+  mimir-data:

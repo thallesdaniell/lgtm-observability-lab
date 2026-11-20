@@ -1,0 +1,17 @@
+otelcol.receiver.otlp "metrics" {
+  http { endpoint = "0.0.0.0:4318" }
+  output { metrics = [otelcol.exporter.prometheus.metrics.input] }
+}
+
+otelcol.exporter.prometheus "metrics" {
+  forward_to = [prometheus.remote_write.mimir.receiver]
+}
+
+prometheus.remote_write "mimir" {
+  endpoint { url = "http://mimir:9009/api/v1/push" }
+}
+
+// Alternativa: encaminhar para um Prometheus com --web.enable-remote-write-receiver.
+// prometheus.remote_write "prometheus" {
+//   endpoint { url = "http://prometheus:9090/api/v1/write" }
+// }
